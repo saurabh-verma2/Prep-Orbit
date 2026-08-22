@@ -1,9 +1,18 @@
 import { ROUTES, navigate, getCurrentRoute } from "./router.js";
 import { renderHomePage } from "../pages/home/home.page.js";
-import { renderPlaceholderPage } from "../pages/shared/placeholder.page.js";
 import { renderGovernmentPage } from "../pages/government/government.page.js";
+import { renderMncPage } from "../pages/mnc/mnc.page.js";
+import { renderNotesPage } from "../pages/notes/notes.page.js";
+import { renderPracticePage } from "../pages/practice/practice.page.js";
+import { renderAuthPage } from "../pages/auth/auth.page.js";
+import { renderAccountPage } from "../pages/account/account.page.js";
+import { renderAdminPage } from "../pages/admin/admin.page.js";
+import { renderMockTestsPage } from "../pages/tests/tests.page.js";
+import { renderDashboardPage } from "../pages/dashboard/dashboard.page.js";
+import { hydrateCustomStudyLibraryFromSupabase } from "../features/learning/learning.data.js";
 
-function renderCurrentPage(root) {
+async function renderCurrentPage(root) {
+  await hydrateCustomStudyLibraryFromSupabase();
   const route = getCurrentRoute();
 
   switch (route.name) {
@@ -16,12 +25,35 @@ function renderCurrentPage(root) {
       break;
 
     case ROUTES.MNC:
-      renderPlaceholderPage(root, {
-        eyebrow: "MNC / IT",
-        title: "MNC & Interview Preparation",
-        description:
-          "This section will connect Company → Role → Round → Topic → Questions in the next build step.",
-      });
+      renderMncPage(root);
+      break;
+
+    case ROUTES.NOTES:
+      renderNotesPage(root);
+      break;
+
+    case ROUTES.PRACTICE:
+      renderPracticePage(root);
+      break;
+
+    case ROUTES.TESTS:
+      renderMockTestsPage(root);
+      break;
+
+    case ROUTES.DASHBOARD:
+      renderDashboardPage(root);
+      break;
+
+    case ROUTES.LOGIN:
+      renderAuthPage(root);
+      break;
+
+    case ROUTES.ACCOUNT:
+      renderAccountPage(root);
+      break;
+
+    case ROUTES.ADMIN:
+      renderAdminPage(root);
       break;
 
     default:
